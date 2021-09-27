@@ -68,7 +68,9 @@ public class POCTestReporter implements Runnable {
                 .GetOpsPerSecondLastInterval();
         String[] opTypes = POCTestResults.opTypes;
 
+        long totals = 0;
         for (String o : opTypes) {
+            totals = totals + results.get(o);
             System.out.format("%,d %s per second since last report ",
                     results.get(o), o);
 
@@ -105,6 +107,10 @@ public class POCTestReporter implements Runnable {
             System.out.println();
 
         }
+        System.out.format("%,d total requests per second ",
+                    totals);
+        System.out.println();
+
         if (outfile != null) {
             outfile.println();
             outfile.close();
